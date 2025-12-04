@@ -1,0 +1,26 @@
+[
+  {
+    "group_id": "101",
+    "day": "monday",
+    "time": "09:00-10:30",
+    "subject": "Математика",
+    "teacher": "Иванов И.И.",
+    "room": "101"
+  },
+  {
+    "group_id": "101",
+    "day": "monday",
+    "time": "10:45-12:15",
+    "subject": "Физика",
+    "teacher": "Петров П.П.",
+    "room": "102"
+  },
+  {
+    "group_id": "102",
+    "day": "tuesday",
+    "time": "09:00-10:30",
+    "subject": "Химия",
+    "teacher": "Сидоров С.С.",
+    "room": "201"
+  }
+]
