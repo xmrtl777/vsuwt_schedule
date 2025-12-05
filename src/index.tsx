@@ -1,43 +1,20 @@
-// src/index.tsx
+// src/main.tsx (или index.tsx — как у тебя называется)
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import { init } from './init';  // ← твой исправленный файл
 
-// Типы для Telegram
-declare global {
-  interface Window {
-    Telegram?: { WebApp?: any };
-  }
-}
+// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+// ИНИЦИАЛИЗАЦИЯ TELEGRAM — ТОЛЬКО ОДНА СТРОКА!
+init();
+// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 
-// Надёжная инициализация Telegram
-const initTelegram = () => {
-  const tryInit = () => {
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-      return true;
-    }
-    return false;
-  };
+// Больше никаких Telegram.WebApp.ready(), expand(), window.Telegram и т.д.
 
-  if (tryInit()) return;
-
-  let attempts = 0;
-  const interval = setInterval(() => {
-    if (tryInit() || attempts++ > 30) clearInterval(interval);
-  }, 100);
-};
-
-initTelegram();
-
-// Рендер React — теперь безопасно
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}
+// Обычный рендер React
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
