@@ -1,7 +1,7 @@
 
-/* src/index.css — pixel-accurate dark mobile style + 100 % Telegram Mini Apps */
+/* src/index.css — полностью готово для Telegram Mini Apps */
+/* Всё видно, всё прокручивается, ничего не съезжает */
 
-/* ═══════════════════════════════ TELEGRAM FIXES ═══════════════════════════════ */
 @font-face {
   font-family: 'InterVar';
   src: url('/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
@@ -10,7 +10,7 @@
   font-display: swap;
 }
 
-/* Основные цвета берём из темы Telegram (автоматически подстраивается под светлую/тёмную тему) */
+/* ═══════════════════════════ TELEGRAM COLORS + SAFE AREAS ═══════════════════════════ */
 :root {
   --bg-0: var(--tg-theme-bg-color, #0b0b0c);
   --panel: var(--tg-theme-secondary-bg-color, #0f1720);
@@ -28,19 +28,20 @@
   --btn-radius: 12px;
 }
 
-/* Полная высота экрана + безопасные зоны Telegram */
+/* ═══════════════════════════ ГЛАВНОЕ: ВЫСОТА + ПРОКРУТКА ═══════════════════════════ */
 html, body, #root {
-  height: 100dvh;               /* динамическая высота (учитывает панели, чёлку, остров) */
+  height: 100dvh !important;
   min-height: 100dvh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                     /* убираем прокрутку у body */
 }
 
-/* Главные отступы под шапку Telegram и безопасные зоны */
 body {
-  margin: 0;
-  padding-top: calc(20px + env(safe-area-inset-top)) !important;        /* 20px — свободно под шапкой TG */
+  padding-top: calc(20px + env(safe-area-inset-top)) !important;
   padding-bottom: calc(20px + env(safe-area-inset-bottom)) !important;
   padding-left: max(12px, env(safe-area-inset-left));
   padding-right: max(12px, env(safe-area-inset-right));
@@ -54,8 +55,12 @@ body {
 /* reset */
 *{box-sizing:border-box}
 
-/* main container — центрируем как телефон */
+/* ═══════════════════════════ ОСНОВНОЙ КОНТЕЙНЕР — ПРОКРУЧИВАЕТСЯ ═══════════════════════════ */
 .app {
+  flex: 1;                              /* ← ЭТО САМОЕ ГЛАВНОЕ: растягивается на всю высоту */
+  overflow-y: auto;                     /* ← прокрутка только здесь */
+  -webkit-overflow-scrolling: touch;    /* плавно на iOS */
+  min-height: 0;                        /* важно для flex */
   max-width: 420px;
   margin: 0 auto;
   padding: 18px;
@@ -68,7 +73,9 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
+  flex-shrink: 0;                       /* хедер не сжимается */
 }
+
 .logo {
   width: 96px;
   height: 96px;
@@ -87,7 +94,6 @@ body {
   filter: contrast(1.2) brightness(1.1) saturate(0.0);
 }
 
-/* caption text */
 .caption {
   text-align: center;
   color: var(--muted);
@@ -96,13 +102,14 @@ body {
   padding: 0 6px;
 }
 
-/* actions: grid 2 columns */
+/* actions grid */
 .actions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin: 10px 0 16px;
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -123,7 +130,7 @@ body {
 .btn--violet { background: linear-gradient(180deg, #8b5cf6, #6f3bd8); border: none; }
 .btn--pink   { background: linear-gradient(180deg, #db2777, #9f1a52); border: none; }
 
-/* big day card — glass-like block */
+/* day card */
 .day-block {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius: 24px;
@@ -133,12 +140,10 @@ body {
   margin-bottom: 12px;
 }
 
-/* day header */
 .day-head { margin-bottom: 8px; }
 .day-title { font-size: 18px; font-weight: 700; color: var(--text); }
 .day-date  { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-/* lessons list */
 .lesson {
   display: flex;
   gap: 12px;
@@ -154,19 +159,18 @@ body {
 .lesson-subject { font-weight: 600; color: var(--text); font-size: 15px; }
 .lesson-teacher { color: var(--muted); font-size: 13px; }
 .lesson-room { color: #60a5fa; font-weight: 700; font-size: 13px; text-decoration: underline; }
-
-/* highlighted lesson */
 .lesson.highlight {
   background: linear-gradient(180deg, rgba(253,230,138,0.12), rgba(253,230,138,0.06));
   border: 1px solid rgba(253,230,138,0.18);
 }
 
-/* footer safe zone spacing (если есть нижняя панель) */
+/* нижняя безопасная зона (если будет футер) */
 .footer-space {
-  height: calc(env(safe-area-inset-bottom, 12px) + 20px);
+  height: calc(20px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
 }
 
-/* responsive для планшетов */
+/* планшет */
 @media (min-width: 720px) {
   .app { max-width: 720px; }
   .actions { grid-template-columns: repeat(4, 1fr); }
