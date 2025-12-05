@@ -1,29 +1,38 @@
 // src/App.tsx
 import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
-
+import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import UserChoice from './pages/UserChoice'
-import StudentLogin from './pages/StudentLogin'
-import Schedule from './pages/Schedule'
-import UniversitySchedule from './pages/UniversitySchedule'
-import AboutUniversity from './pages/AboutUniversity'
-import RecordBook from './pages/RecordBook'
-import Profile from './pages/Profile'
-import EmployeePage from './pages/EmployeePage'
+/* остальные импорты ваших страниц */
+
+function DebugBanner() {
+  const tg = (window as any).Telegram?.WebApp
+  const initData = tg?.initData || tg?.initDataUnsafe ||  null
+  return (
+    <div style={{ background: 'rgba(255,255,255,0.02)', padding: 8, borderRadius: 8, color: '#cbd5e1', margin: 12 }}>
+      <div style={{ fontSize: 13, color: '#94a3b8' }}>Debug</div>
+      <div style={{ fontSize: 14, marginTop: 6 }}>
+        Telegram.WebApp: <strong style={{ color: tg ? '#34d399' : '#fb7185' }}>{tg ? 'FOUND' : 'NOT FOUND'}</strong>
+      </div>
+      <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6 }}>
+        initData: <code style={{ color: '#cbd5e1' }}>{initData ? JSON.stringify(initData).slice(0, 200) : '—'}</code>
+      </div>
+      <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6 }}>
+        URL: <code style={{ color: '#cbd5e1' }}>{location.href}</code>
+      </div>
+    </div>
+  )
+}
 
 export default function App() {
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<UserChoice />} />
-        <Route path="/student-login" element={<StudentLogin />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/university-schedule" element={<UniversitySchedule />} />
-        <Route path="/about-university" element={<AboutUniversity />} />
-        <Route path="/record-book" element={<RecordBook />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/employee" element={<EmployeePage />} />
-      </Routes>
+      <div style={{ maxWidth: 420, margin: '0 auto' }}>
+        <DebugBanner />
+        <Routes>
+          <Route path="/" element={<UserChoice />} />
+          {/* остальные маршруты */}
+        </Routes>
+      </div>
     </HashRouter>
   )
 }
