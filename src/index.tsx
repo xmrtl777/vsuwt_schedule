@@ -1,12 +1,12 @@
-// src/index.tsx  (или src/main.tsx — как у тебя указано в index.html)
+// src/index.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 
-// ──────────────────────────────────────────────────────────────────────
-// Типы для TypeScript — чтобы не ругался на window.Telegram
-// ──────────────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────
+// Типы для TypeScript (чтобы не ругался на window.Telegram)
+// ──────────────────────────────────────────────────────────────
 declare global {
   interface Window {
     Telegram?: {
@@ -14,57 +14,56 @@ declare global {
         ready: () => void;
         expand: () => void;
         initDataUnsafe: any;
-        initData: string;
-        version: string;
-        themeParams: any;
-        close: () => void;
         [key: string]: any;
       };
     };
   }
 }
 
-// ──────────────────────────────────────────────────────────────────────
-// Надёжная инициализация Telegram WebApp (работает даже при задержке загрузки скрипта)
-// ──────────────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────
+// Функция инициализации Telegram WebApp
+// (оставляем на всякий случай — вдруг потом пригодится)
+// ──────────────────────────────────────────────────────────────
 const initTelegramWebApp = () => {
   const tryInit = () => {
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
-      console.log('Telegram WebApp инициализирован успешно');
+      console.log('Telegram WebApp инициализирован');
       return true;
     }
     return false;
   };
 
-  // Пробуем сразу
   if (tryInit()) return;
 
-  // Если сразу не получилось — ждём максимум 3 секунды
   let attempts = 0;
   const interval = setInterval(() => {
-    if (tryInit() || attempts >= 30) {
-      clearInterval(interval);
-    }
+    if (tryInit() || attempts >= 30) clearInterval(interval);
     attempts++;
   }, 100);
 };
 
-// Запускаем инициализацию
+// Пока тестируем чистый HTML — ВСЁ НИЖЕ ЗАКММЕНТИРОВАНО
+// Раскомментируешь только после того, как простой тест в Telegram заработает!
+
+/*
 initTelegramWebApp();
 
-// ──────────────────────────────────────────────────────────────────────
-// Обычный рендер React-приложения
-// ──────────────────────────────────────────────────────────────────────
 const rootElement = document.getElementById('root');
-
 if (!rootElement) {
-  throw new Error('Не найден элемент #root в index.html');
+  throw new Error('Не найден #root в index.html');
 }
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
+*/
+
+// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+// ВСЁ, ЧТО НИЖЕ — ЗАКММЕНТИРОВАНО! 
+// Сборка пройдёт, Vercel загрузит простой index.html из корня
+// и мы увидим, работает ли Telegram вообще
+// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
