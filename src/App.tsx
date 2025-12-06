@@ -1,32 +1,59 @@
-
-
 // src/App.tsx
-import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
-
-import UserChoice from './pages/UserChoice'
-import StudentLogin from './pages/StudentLogin'
-import Schedule from './pages/Schedule'
-import UniversitySchedule from './pages/UniversitySchedule'
-import AboutUniversity from './pages/AboutUniversity'
-import RecordBook from './pages/RecordBook'
-import Profile from './pages/Profile'
-import EmployeePage from './pages/EmployeePage'
+import React, { useEffect } from 'react';
+import { useTelegram } from './hooks/useTelegram';
+import './App.css';
 
 export default function App() {
-  return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<UserChoice />} />
-        <Route path="/student-login" element={<StudentLogin />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/university-schedule" element={<UniversitySchedule />} />
-        <Route path="/about-university" element={<AboutUniversity />} />
-        <Route path="/record-book" element={<RecordBook />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/employee" element={<EmployeePage />} />
-      </Routes>
-    </HashRouter>
-  )
-}
+  const { tg, ready } = useTelegram();
 
+  useEffect(() => {
+    if (!ready) {
+      console.log('Telegram not ready — running in browser mode');
+      return;
+    }
+
+    // безопасно: tg доступен и готов
+    try {
+      tg.setBackgroundColor?.('#ffffff');
+      // пример: можно установить заголовок, если SDK поддерживает
+      if (tg.setHeader) tg.setHeader('VSUWT Schedule');
+    } catch (err) {
+      console.warn('Error calling tg methods', err);
+    }
+  }, [tg, ready]);
+
+  return (
+    <div className="app">
+      <header className="app-header">
+        <img src="/vswt_logo.png" alt="logo" className="logo" />
+        <h1>VSUWT Schedule</h1>
+      </header>
+
+      <main className="app-main">
+        <section className="card">
+          <h2>Добро пожаловать</h2>
+          <p>
+            Приложение {ready ? 'запущено внутри Telegram' : 'работает в браузере (mock-режим)'}.
+          </p>
+          <div className="controls">
+            <button
+              className="btn primary"
+              onClick={() => {
+                if (tg) {
+                  // здесь можно вызвать методы tg, если нужно
+                  tg.expand?.();
+                } else {
+                  window.open('https://vsuwt-schedule.vercel.app', '_blank');
+                }
+              }}
+            >
+              Открыть мини-приложение
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer className="app-footer">© VSUWT</footer>
+    </div>
+  );
+}
