@@ -1,22 +1,150 @@
-/* src/index.css */
-:root {
-  --bg: #f5f7fb;
-  --card: #fff;
-  --accent: #2b9af3;
-  --text: #111827;
-  --muted: #6b7280;
+
+/* src/index.css — pixel-accurate dark mobile style */
+@font-face {
+  font-family: 'InterVar';
+  src: url('/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-*{box-sizing:border-box}
-html,body,#root{height:100%;margin:0;padding:0;font-family:Inter,Arial,Helvetica,sans-serif}
-body{background:var(--bg);color:var(--text)}
+:root{
+  --bg-0:#0b0b0c;
+  --panel:#0f1720;
+  --card:#0b1220;
+  --muted:#9aa4b2;
+  --text:#e6eef8;
+  --accent:#1f6feb;
+  --green:#16a34a;
+  --orange:#f97316;
+  --violet:#8b5cf6;
+  --pink:#db2777;
+  --glass: rgba(255,255,255,0.03);
+  --card-radius:20px;
+  --btn-radius:12px;
+  --safe-pad: env(safe-area-inset-top, 12px);
+}
 
-.app {max-width:900px;margin:32px auto;padding:0 16px}
-.app-header{display:flex;gap:12px;align-items:center;margin-bottom:20px}
-.logo{width:56px;height:56px;object-fit:contain;border-radius:8px;background:#fff;padding:6px}
-.app-main{display:flex;justify-content:center}
-.card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.06);width:100%}
-.controls{margin-top:16px}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
-.btn.primary{background:var(--accent);color:white;border:none}
-.app-footer{margin-top:16px;color:var(--muted);font-size:13px;text-align:center}
+/* reset */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  background: linear-gradient(180deg,var(--bg-0),#050506);
+  color:var(--text);
+  font-family: InterVar, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-top: calc(var(--safe-pad));
+}
+
+/* main container — centered, narrow like phone */
+.app {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+/* header with logo and caption */
+.header {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.logo {
+  width:96px;
+  height:96px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 2px 8px rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.logo img{
+  width:72px; height:72px; object-fit:contain; filter:contrast(1.2) brightness(1.1) saturate(0.0);
+}
+
+/* caption text */
+.caption {
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.25;
+  padding:0 6px;
+}
+
+/* actions: grid 2 columns like on picture */
+.actions {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+  margin: 10px 0 16px;
+}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 12px;
+  border-radius: var(--btn-radius);
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  border: 1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+  color:var(--text);
+}
+.btn--blue{ background: linear-gradient(180deg, #1f6feb, #1556c6); border: none; }
+.btn--green{ background: linear-gradient(180deg, #16a34a, #0f7a35); border: none; }
+.btn--orange{ background: linear-gradient(180deg,#f97316,#e66d10); border:none; }
+.btn--violet{ background: linear-gradient(180deg,#8b5cf6,#6f3bd8); border:none; }
+.btn--pink{ background: linear-gradient(180deg,#db2777,#9f1a52); border:none; }
+
+/* big day card — glass-like block */
+.day-block {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 24px;
+  padding: 14px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
+  margin-bottom: 12px;
+}
+
+/* day header */
+.day-head { margin-bottom: 8px; }
+.day-title { font-size:18px; font-weight:700; color:var(--text); }
+.day-date  { font-size:13px; color:var(--muted); margin-top:6px; }
+
+/* lessons list: each lesson has left time column and right body */
+.lesson {
+  display:flex;
+  gap:12px;
+  padding:12px;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.02);
+  margin-top:8px;
+  align-items:flex-start;
+}
+.lesson-time { min-width:68px; font-weight:700; color:#cfe5ff; font-size:13px; }
+.lesson-body { flex:1; display:flex; flex-direction:column; gap:6px; }
+.lesson-subject { font-weight:600; color:var(--text); font-size:15px; }
+.lesson-teacher { color:var(--muted); font-size:13px; }
+.lesson-room { color:#60a5fa; font-weight:700; font-size:13px; text-decoration:underline; }
+
+
+/* highlighted lesson for selected group */
+.lesson.highlight { background: linear-gradient(180deg, rgba(253,230,138,0.12), rgba(253,230,138,0.06)); border:1px solid rgba(253,230,138,0.18); }
+
+/* footer safe zone spacing */
+.footer-space { height: calc(env(safe-area-inset-bottom, 12px) + 10px); }
+
+/* responsive adjustments for larger widths (tablet) */
+@media(min-width:720px){
+  .app{ max-width:720px; }
+  .actions{ grid-template-columns: repeat(4,1fr); }
+}

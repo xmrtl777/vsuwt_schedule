@@ -25,7 +25,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <img src="/vswt_logo.png" alt="logo" className="logo" />
+        <img src="/vsuwt_logo.png" alt="logo" className="logo" />
         <h1>VSUWT Schedule</h1>
       </header>
 
