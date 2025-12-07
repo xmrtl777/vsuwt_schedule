@@ -9,5 +9,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
-  base: './'
+  server: {
+    // Для SPA, чтобы открытие /student-login не ломалось
+    fs: {
+      strict: false,
+    },
+  },
 })
