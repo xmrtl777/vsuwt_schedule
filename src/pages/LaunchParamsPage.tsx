@@ -2,8 +2,8 @@ import { useLaunchParams } from '@tma.js/sdk-react';
 import { List } from '@telegram-apps/telegram-ui';
 import type { FC } from 'react';
 
-import { DisplayData } from '@/components/DisplayData/DisplayData.tsx';
-import { Page } from '@/components/Page.tsx';
+import { DisplayData } from '@/components/DisplayData/DisplayData';
+import { Page } from '@/components/Page';
 
 export const LaunchParamsPage: FC = () => {
   const lp = useLaunchParams();

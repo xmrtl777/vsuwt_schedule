@@ -2,7 +2,7 @@ import { openLink } from '@tma.js/sdk-react';
 import { type FC, type MouseEventHandler, useCallback } from 'react';
 import { Link as RouterLink, type LinkProps } from 'react-router-dom';
 
-import { classNames } from '@/css/classnames.ts';
+import { classNames } from '@/css/classnames';
 
 import './Link.css';
 

@@ -1,59 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>VSUWT Schedule</title>
-
-    <!-- Обязательно для Telegram WebApp -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-    <!-- Глобальные стили под Telegram и ваш макет -->
-    <style>
-      :root {
-        color-scheme: dark;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        background: #0b0b0c;
-        color: #e6eef8;
-        font-family: system-ui, sans-serif;
-        min-height: 100dvh;
-        overflow-x: hidden;
-      }
-
-      /* Контейнер для React */
-      #root {
-        width: 100%;
-        min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="root"></div>
-
-    <!-- Основной скрипт Vite -->
-    <script type="module" src="/src/index.tsx"></script>
-
-    <script>
-      // Инициализация Telegram Mini App
-      if (window.Telegram?.WebApp) {
-        Telegram.WebApp.ready();
-        Telegram.WebApp.expand();
-
-        // Убираем белые вспышки при загрузке
-        Telegram.WebApp.setBackgroundColor("#0b0b0c");
-        Telegram.WebApp.setHeaderColor("#0b0b0c");
-      }
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSUWT Schedule</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
 </html>

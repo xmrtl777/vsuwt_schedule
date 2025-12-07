@@ -1,8 +1,8 @@
 import type { RGB as RGBType } from '@tma.js/sdk-react';
 import type { FC } from 'react';
 
-import { bem } from '@/css/bem.ts';
-import { classNames } from '@/css/classnames.ts';
+import { bem } from '@/css/bem';
+import { classNames } from '@/css/classnames';
 
 import './RGB.css';
 
