@@ -1,17 +1,44 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { routes } from './navigation/routes';
+// src/App.tsx
+import React from 'react'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
-const App = () => {
+import UserChoice from './pages/UserChoice'
+import StudentLogin from './pages/StudentLogin'
+import Schedule from './pages/Schedule'
+import UniversitySchedule from './pages/UniversitySchedule'
+import AboutUniversity from './pages/AboutUniversity'
+import RecordBook from './pages/RecordBook'
+import Profile from './pages/Profile'
+import EmployeePage from './pages/EmployeePage'
+import {LaunchParamsPage} from './pages/LaunchParamsPage'
+import {InitDataPage} from './pages/InitDataPage'
+import {ThemeParamsPage} from './pages/ThemeParamsPage'
+import {IndexPage} from './pages/IndexPage'
+
+export default function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
-        {routes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-      </Routes>
-    </Router>
-  );
-};
+        {/* Главная точка входа */}
+        <Route path="/" element={<UserChoice />} />
 
-export default App;
+        {/* Студент */}
+        <Route path="/student-login" element={<StudentLogin />} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/record-book" element={<RecordBook />} />
+
+        {/* Сотрудник */}
+        <Route path="/employee" element={<EmployeePage />} />
+
+        {/* Дополнительные страницы */}
+        <Route path="/university-schedule" element={<UniversitySchedule />} />
+        <Route path="/about-university" element={<AboutUniversity />} />
+        <Route path="/launch-params" element={<LaunchParamsPage />} />
+        <Route path="/init-data" element={<InitDataPage />} />
+        <Route path="/theme-params" element={<ThemeParamsPage />} />
+        <Route path="/index-page" element={<IndexPage />} />
+      </Routes>
+    </HashRouter>
+  )
+}
