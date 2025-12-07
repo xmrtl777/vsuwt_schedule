@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import UserChoice from './pages/UserChoice'
 import StudentLogin from './pages/StudentLogin'
@@ -17,7 +17,7 @@ import {IndexPage} from './pages/IndexPage'
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         {/* Главная точка входа */}
         <Route path="/" element={<UserChoice />} />
@@ -39,6 +39,6 @@ export default function App() {
         <Route path="/theme-params" element={<ThemeParamsPage />} />
         <Route path="/index-page" element={<IndexPage />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
