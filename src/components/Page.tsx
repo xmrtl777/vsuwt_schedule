@@ -1,24 +1,13 @@
-import { useNavigate } from 'react-router-dom';
-import { backButton } from '@tma.js/sdk-react';
-import { type PropsWithChildren, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 
-export function Page({ children, back = true }: PropsWithChildren<{
-  /**
-   * True if it is allowed to go back from this page.
-   */
-  back?: boolean
-}>) {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (back) {
-      backButton.show();
-      return backButton.onClick(() => {
-        navigate(-1);
-      });
-    }
-    backButton.hide();
-  }, [back]);
-
-  return <>{children}</>;
+interface PageProps {
+  children: ReactNode;
 }
+
+const Page = ({ children }: PageProps) => (
+  <div style={{ padding: '20px', background: '#111', minHeight: '100vh', color: '#fff' }}>
+    {children}
+  </div>
+);
+
+export default Page;
